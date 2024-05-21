@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment and Accounting</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .nav {
+            background-color: #333;
+            color: hsl(0, 58%, 58%);
+            text-align: center;
+            padding: 10px 0;
+        }
+        .nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        .nav ul li {
+            margin: 0 15px;
+        }
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .nav ul li a:hover {
+            color: #ff0; /* Change color on hover */
+        }
+
+        /* Additional styling for Payment and Accounting form */
+        .box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px auto; /* Center the box horizontally */
+            width: 80%; /* Set the width of the box */
+            max-width: 600px; /* Set a maximum width */
+            text-align: left; /* Align text to the left within the box */
+        }
+        label {
+            display: block; /* Ensure labels are displayed as block elements */
+            margin-bottom: 10px; /* Add spacing between labels */
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%; /* Make form inputs span full width */
+            padding: 10px; /* Add padding for better appearance */
+            margin-bottom: 15px; /* Add spacing between inputs */
+        }
+        button[type="submit"] {
+            width: 100%; /* Make submit button span full width */
+            padding: 10px; /* Add padding for better appearance */
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        ul {
+            list-style-type: none; /* Remove default bullet points */
+            padding: 0; /* Remove default padding */
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <ul>
+        <li><a href="index.html">Product Inventory</a></li>
+        <li><a href="Payment.html">Payment & Accounting</a></li>
+        <li><a href="Logistics.html">Logistics</a></li>
+        <li><a href="Customer.html">Customer Services</a></li>
+        <li><a href="Reports.html">Reports</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="box">
+        <h2>Customer Information</h2>
+        <form action="/process_payment" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea><br>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>Choose Payment Method</h2>
+        <form action="/process_payment" method="POST">
+            <label for="payment_method">Select Payment Method:</label><br>
+            <select id="payment_method" name="payment_method" required>
+                <option value="gcash">GCash</option>
+                <option value="cash">Cash</option>
+                <!-- Add more payment options as needed -->
+            </select><br>
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>Accounting</h2>
+        <p>Balance: ₱5000</p>
+        <p>Recent Transactions:</p>
+        <ul>
+            <li>Payment of ₱50 on 2024-03-21</li>
+            <li>Payment of ₱100 on
+                <li>Payment of ₱50 on 2024-03-20</li>
+                <li>Payment of ₱75 on 2024-03-19</li>
+            </ul>
+        </div>
+    </div>
+    
+    </body>
+    </html>
