@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ./products/despay.php");
+    header("location: ./public/user/dashboard.php");
     exit;
 }
  
@@ -62,8 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["username"] = $username;                            
                             
                             // Redirect user to welcome page
-                           // header("location: ./products/board.php");
-                           header("location: ./products/despay.php");
+                            header("location: ./public/user/dashboard.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -94,88 +93,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-           body {
-    font-family: Arial, sans-serif;
-    background-image: url('./media/4.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.wrapper {
-    width: 360px;
-    padding: 30px;
-    background-color: #fff; /* White background */
-    border-radius: 20px;
-    box-shadow: 0px 0px 30px rgba(255, 69, 0, 0.7), 0 0 0 4px black; /* Orange shadow and black border */
-    background-image: url('./media/2.jpg'); /* Background image */
-    background-size: cover;
-    background-position: center;
-}
-
-
-        .wrapper h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: white; /* Hard black text */
-            font-weight: bold; /* Bold font */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Text shadow */
-            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            color: white; /* Hard black text */
-            font-weight: bold; /* Bold font */
-            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-        }
-
-        .form-control {
-            border-color: orange; /* Light gray border */
-            font-weight: bold; /* Bold font */
-        }
-
-        .form-control:focus {
-            border-color: orange; /* Blue border when focused */
-            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); /* Focus effect */
-        }
-
-        .btn-primary {
-            background-color: orange; /* Blue button */
-            border-color: black;
-            font-weight: bold; /* Bold font */
-        }
-
-        .btn-primary:hover {
-            background-color: orange; /* Darker blue on hover */
-            border-color: #0056b3;
-        }
-
-        .alert {
-            margin-top: 20px;
-        }
-        p {
-    font-weight: bold;
-    color: white;
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-}
-
-
-        a {
-             font-weight: bold;
-             color: orange;
-             text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-        } 
-        
-
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 360px; padding: 20px; }
     </style>
 </head>
 <body>
@@ -201,9 +120,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-    <input type="submit" class="btn btn-primary" value="Login" style="color: black;">
-</div>
-
+                <input type="submit" class="btn btn-primary" value="Login">
+            </div>
             <p>Don't have an account? <a href="./public/user/register.php">Sign up now</a>.</p>
         </form>
     </div>

@@ -3,64 +3,64 @@
 require_once "../../db/config.php";
  
 // Define variables and initialize with empty values
-$product_name = $product_details = $product_retail_price = "";
-$product_name_err = $product_details_err = $product_retail_price_err = "";
+$sale_name = $sale_details = $sale_retail_price = "";
+$sale_name_err = $sale_details_err = $sale_retail_price_err = "";
  
 // Processing form data when form is submitted
-if(isset($_POST["product_id"]) && !empty($_POST["product_id"])){
+if(isset($_POST["sale_id"]) && !empty($_POST["sale_id"])){
     // Get hidden input value
-    $product_id = $_POST["product_id"];
+    $sale_id = $_POST["sale_id"];
     
     // Validate name
-    $input_product_name = trim($_POST["product_name"]);
-    if(empty($input_product_name)){
-        $product_name_err = "Please enter a name.";
-    } elseif(!filter_var($input_product_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $product_name_err = "Please enter a valid name.";
+    $input_sale_name = trim($_POST["sale_name"]);
+    if(empty($input_sale_name)){
+        $sale_name_err = "Please enter a name.";
+    } elseif(!filter_var($input_sale_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $sale_name_err = "Please enter a valid name.";
     } else{
-        $product_name = $input_product_name;
+        $sale_name = $input_sale_name;
     }
     
     // Validate product details
-    $input_product_details = trim($_POST["product_details"]);
-    if(empty($input_product_details)){
-        $aproduct_details_err = "Please enter product details.";     
+    $input_sale_details = trim($_POST["sale_details"]);
+    if(empty($input_sale_details)){
+        $sale_details_err = "Please enter sale product details.";     
     } else{
-        $product_details = $input_product_details;
+        $sale_details = $input_sale_details;
     }
     
     // Validate product retail price
-    $input_product_retail_price = trim($_POST["product_retail_price"]);
-    if(empty($input_product_retail_price)){
-        $product_retail_price_err = "Please enter the retail price amount.";     
-    } elseif(!ctype_digit($input_product_retail_price)){
-        $product_retail_price_err = "Please enter a positive integer value.";
+    $input_sale_retail_price = trim($_POST["sale_retail_price"]);
+    if(empty($input_sale_retail_price)){
+        $sale_retail_price_err = "Please enter the retail sale price amount.";     
+    } elseif(!ctype_digit($input_sale_retail_price)){
+        $sale_retail_price_err = "Please enter a positive integer value.";
     } else{
-        $product_retail_price = $input_product_retail_price;
+        $sale_retail_price = $input_sale_retail_price;
     }
     
     // Check input errors before inserting in database
-    if(empty($product_name_err) && empty($product_details_err) && empty($product_retail_price_err)){
+    if(empty($sale_name_err) && empty($sale_details_err) && empty($sale_retail_price_err)){
         // Prepare an update statement
-        $sql = "UPDATE products SET product_name=:product_name, product_details=:product_details, product_retail_price=:product_retail_price WHERE product_id=:product_id";
+        $sql = "UPDATE sales SET sale_name=:sale_name, sale_details=:sale_details, sale_retail_price=:sale_retail_price WHERE sale_id=:sale_id";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":product_name", $param_product_name);
-            $stmt->bindParam(":product_details", $param_product_details);
-            $stmt->bindParam(":product_retail_price", $param_product_retail_price);
-            $stmt->bindParam(":product_id", $param_product_id);
+            $stmt->bindParam(":sale_name", $param_sale_name);
+            $stmt->bindParam(":sale_details", $param_sale_details);
+            $stmt->bindParam(":sale_retail_price", $param_sale_retail_price);
+            $stmt->bindParam(":sale_id", $param_sale_id);
             
             // Set parameters
-            $param_product_name = $product_name;
-            $param_product_details = $product_details;
-            $param_product_retail_price = $product_retail_price;
-            $param_product_id = $product_id;
+            $param_sale_name = $sale_name;
+            $param_sale_details = $sale_details;
+            $param_sale_retail_price = $sale_retail_price;
+            $param_sale_id = $sale_id;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Records updated successfully. Redirect to landing page
-                header("location: ../user/dashboard.php");
+                header("location: ../user/sale.php");
                 exit();
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -75,18 +75,18 @@ if(isset($_POST["product_id"]) && !empty($_POST["product_id"])){
     unset($pdo);
 } else{
     // Check existence of id parameter before processing further
-    if(isset($_GET["product_id"]) && !empty(trim($_GET["product_id"]))){
+    if(isset($_GET["sale_id"]) && !empty(trim($_GET["sale_id"]))){
         // Get URL parameter
-        $product_id =  trim($_GET["product_id"]);
+        $product_id =  trim($_GET["sale_id"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM products WHERE product_id = :product_id";
+        $sql = "SELECT * FROM sales WHERE sale_id = :sale_id";
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":product_id", $param_product_id);
+            $stmt->bindParam(":sale_id", $param_sale_id);
             
             // Set parameters
-            $param_product_id = $product_id;
+            $param_sale_id = $sale_id;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -96,9 +96,9 @@ if(isset($_POST["product_id"]) && !empty($_POST["product_id"])){
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                     // Retrieve individual field value
-                    $product_name = $row["product_name"];
-                    $product_details = $row["product_details"];
-                    $product_retail_price = $row["product_retail_price"];
+                    $sale_name = $row["sale_name"];
+                    $sale_details = $row["sale_details"];
+                    $sale_retail_price = $row["sale_retail_price"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: ../user/error.php");
@@ -146,22 +146,22 @@ if(isset($_POST["product_id"]) && !empty($_POST["product_id"])){
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" name="product_name" class="form-control <?php echo (!empty($product_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $product_name; ?>">
-                            <span class="invalid-feedback"><?php echo $product_name_err;?></span>
+                            <input type="text" name="sale_name" class="form-control <?php echo (!empty($sale_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $sale_name; ?>">
+                            <span class="invalid-feedback"><?php echo $sale_name_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Product Details</label>
-                            <textarea name="product_details" class="form-control <?php echo (!empty($product_details_err)) ? 'is-invalid' : ''; ?>"><?php echo $product_details; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $product_details_err;?></span>
+                            <textarea name="sale_details" class="form-control <?php echo (!empty($sale_details_err)) ? 'is-invalid' : ''; ?>"><?php echo $sale_details; ?></textarea>
+                            <span class="invalid-feedback"><?php echo $sale_details_err;?></span>
                         </div>
                         <div class="form-group">
-                            <label>Product Retail Price</label>
-                            <input type="text" name="product_retail_price" class="form-control <?php echo (!empty($product_retail_price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $product_retail_price; ?>">
-                            <span class="invalid-feedback"><?php echo $product_retail_price_err;?></span>
+                            <label>Product sale Retail Price</label>
+                            <input type="text" name="sale_retail_price" class="form-control <?php echo (!empty($sale_retail_price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $product_retail_price; ?>">
+                            <span class="invalid-feedback"><?php echo $sale_retail_price_err;?></span>
                         </div>
                         
                         <!--Initialize product id-->
-                        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/>
+                        <input type="hidden" name="sale_id" value="<?php echo $sale_id; ?>"/>
                         
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveUpdateChangesModal">
                             Save Changes
@@ -188,7 +188,7 @@ if(isset($_POST["product_id"]) && !empty($_POST["product_id"])){
                         </div>
                         </div>
 
-                        <a href="../user/dashboard.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <a href="../user/sale.php" class="btn btn-secondary ml-2">Cancel</a>
                     </form>
                 </div>
             </div>        
