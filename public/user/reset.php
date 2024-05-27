@@ -94,12 +94,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 .wrapper {
     width: 360px;
     padding: 30px;
-    background-color: #fff; /* White background */
+    background-color: transparent; /* Transparent background */
     border-radius: 20px;
-    box-shadow: 0px 0px 30px rgba(255, 69, 0, 0.7), 0 0 0 4px black; /* Orange shadow and black border */
-    background-image: url('../../media/2.webp'); /* Background image */
-    background-size: cover;
-    background-position: center;
+    box-shadow: 0px 0px 30px rgba(128, 128, 128, 0.7); /* Gray blurred shadow */
+    backdrop-filter: blur(10px); /* Blurred effect */
+    box-shadow: 0px 0px 30px rgba(128, 128, 128, 0.7), 0 0 20px rgba(0, 0, 0, 0.2); /* Gray blurred shadow and additional shadow */
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Thin black border */
 }
 
 

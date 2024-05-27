@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "s";
+$dbname = "yorme";
 
 try {
     // Create a PDO connection
